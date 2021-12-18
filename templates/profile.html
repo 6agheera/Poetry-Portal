@@ -1,0 +1,36 @@
+{%extends 'main.html'%}
+{%block content%}
+{{super()}}
+<hr>
+<section class="profile-section">
+    <div class="profile-avatar-info">
+        <div class="profile-ava"><img src="{{url_for('userava')}}"></div>
+        <form action = "{{url_for('upload')}}" method = "POST" class="profile-ava-load" enctype="multipart/form-data">
+            <div>
+                <input type="file" id = "file" name = 'file' accept="image/png, image/jpeg">
+                <label class = "file-label" for="file">Выберите файл</label>
+                <input type="submit" value="Загрузить">
+            </div>
+        </form>
+    </div>
+    <div class="profile-info">
+        <ul class="profile-info-list">
+            <li>Логин: {{current_user.get_name()}}</li>
+            <li>Email: {{current_user.get_email()}}</li>
+            <li>Дата регистрации: {{current_user.get_time()}}</li>
+        </ul>
+    </div>
+    <div class="profile-archive">
+        <ul class = "poems_list">
+            {%for p in writings%}
+            <li>
+                <p class = "title_poem"><a href="{{url_for('showWriting',writing_url = p.url)}}">{{p.title}}</a></p>
+                <p class = "announce">{{p.text[:50]}}</p>
+            </li>
+            {%endfor%}
+        </ul>
+    </div>
+</section>
+
+
+{%endblock%}

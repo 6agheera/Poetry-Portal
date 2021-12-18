@@ -1,0 +1,17 @@
+{%extends 'main.html'%}
+{%block content%}
+{{super()}}
+<hr>
+<section class = "adding_writing_section">
+    <form action="{{url_for('addWriting')}}" method = "post">
+        {{form.hidden_tag()}}
+        {{form.title(class = "writing_title", placeholder = "Название записи")}}
+        {{form.writing(rows=3, cols=70, class = 'writing_adding')}}
+        <p>{{form.submit(class = 'submit_writing')}}</p>
+    </form>
+    {%for cat,msg in get_flashed_messages(True)%}
+        <div class = "flash {{cat}}">{{msg}}</div>
+    {%endfor%}
+</section>
+<script src="/static/js/writings.js"></script>
+{%endblock%}

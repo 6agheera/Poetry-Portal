@@ -1,0 +1,44 @@
+{%extends 'main.html'%}
+{%block content%}
+{{super()}}
+<section class="form_registration">
+    <form action="{{url_for('login')}}"  method = "post">
+        {{form.hidden_tag()}}
+        <div>
+            {{form.email.label()}}
+            {%if form.email.errors%}
+                {{form.email(class = 'invalid')}}
+                <span class="invalid-feedback">
+                    {%for e in form.email.errors%}
+                        {{e}}
+                    {%endfor%}
+                </span>
+            {%else%}
+                {{form.email()}}
+            {%endif%}
+        </div>
+        <div>
+            {{form.passw.label()}}
+            {%if form.passw.errors%}
+                {{form.passw(class = 'invalid')}}
+                <span class="invalid-feedback">
+                    {%for e in form.passw.errors%}
+                        {{e}}
+                    {%endfor%}
+                </span>
+            {%else%}
+                {{form.passw()}}
+            {%endif%}
+        </div>
+        <div>
+        <p>{{form.remember.label()}} {{form.remember()}}</p>
+        </div>
+        <div>
+            <p>{{form.submit()}}</p>
+        </div>
+    </form>
+    {%for cat,msg in get_flashed_messages(True)%}
+        <div class = "flash {{cat}}">{{msg}}</div>
+    {%endfor%}
+</section>
+{%endblock%}

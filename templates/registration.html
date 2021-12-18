@@ -1,0 +1,31 @@
+{%extends 'main.html'%}
+{%block content%}
+{{super()}}
+<section class="form_registration">
+    <form action="/registration" method = "post">
+        {{form.hidden_tag()}}
+        <div>
+            {{form.login.label()}}
+            {{form.login(autocomplete="off")}}
+        </div>
+        <div>
+            {{form.email.label()}}
+            {{form.email()}}
+        </div>
+        <div>
+            {{form.passw.label()}}
+            {{form.passw()}}
+        </div>
+        <div>
+            {{form.passw2.label()}}
+            {{form.passw2()}}
+        </div>
+        <div>
+            <p>{{form.submit()}}</p>
+        </div>
+    </form>
+    {%for cat,msg in get_flashed_messages(True)%}
+        <div class = "flash {{cat}}">{{msg}}</div>
+    {%endfor%}
+</section>
+{%endblock%}
