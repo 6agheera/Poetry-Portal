@@ -21,7 +21,8 @@
         </ul>
     </div>
     <div class="profile-archive">
-        <ul class = "poems_list">
+        <hr>
+        <ul>
             {%for p in writings%}
             <li>
                 <p class = "title_poem"><a href="{{url_for('showWriting',writing_url = p.url)}}">{{p.title}}</a></p>

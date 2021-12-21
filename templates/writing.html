@@ -2,5 +2,11 @@
 {%block content%}
 {{super()}}
 <hr>
-{{writing}}
+<div class = "writing">
+    <div>
+        <p>{{title}}</p>
+        <hr>
+        <p>{{writing|safe}}</p>
+    </div>
+</div>
 {%endblock%}

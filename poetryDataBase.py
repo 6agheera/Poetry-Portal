@@ -86,7 +86,7 @@ class poetryDataBase:
     
     def getWriting(self, writing_url):
         try:
-            self.__cur.execute(f"SELECT title, text, FROM writings WHERE url = '{writing_url}' LIMIT 1")
+            self.__cur.execute(f"SELECT title, text FROM writings WHERE url = '{writing_url}' LIMIT 1")
             res = self.__cur.fetchone()
             if res:
                 return res

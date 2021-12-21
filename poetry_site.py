@@ -107,10 +107,12 @@ def addWriting():
         flash("Запись не валидна","error")
     return render_template("add_writing.html", menu = dBase.getMenu(), title = "Добавление записи", form = form)
 
-@app.route("/writing/<writing_url>")
+@app.route("/profile/<writing_url>")
 @login_required
 def showWriting(writing_url):
     title, writing = dBase.getWriting(writing_url)
+    writing = writing.replace("\n","<br>")
+    print(writing)
     if not title:
         abort(404)
     return render_template('writing.html', menu = dBase.getMenu(), title = title, writing = writing)
