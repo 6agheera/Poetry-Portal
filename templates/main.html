@@ -18,8 +18,12 @@
         <div>
             <ul class="header_menu_list">
                 {%for i in menu%}
-                    {%if i.title == 'Регистрация' and current_user.is_authenticated%}
-                        <li><a href="/logout">Выйти</a></li>
+                    {%if i.title == "Авторизация" and current_user.is_authenticated%}
+                        <li><a href="{{url_for('logout')}}">Выйти</a></li>
+                    {%elif i.title == 'Авторизация' and title == 'Регистрация'%}
+                        <li><a href="{{url_for('login')}}">Авторизация</a></li>
+                    {%elif i.title == 'Авторизация'%}
+                        <li><a href="{{url_for('registration')}}">Регистрация</a></li>
                     {%else%}
                         <li><a href="{{i.url}}">{{i.title}}</a></li>
                     {%endif%}

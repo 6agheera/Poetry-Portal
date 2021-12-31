@@ -55,7 +55,11 @@ def before_request():
 
 @app.route("/")
 def main():
-    return render_template("main.html",menu = dBase.getMenu(), title = "ONEGIN'S", current_user = current_user)
+    if current_user.is_authenticated:
+        return redirect(url_for("profile"))
+    else:
+        return redirect(url_for("login"))
+    # return render_template("main.html",menu = dBase.getMenu(), title = "ONEGIN'S", current_user = current_user)
 
 @app.route('/login', methods = ['POST', 'GET'])
 def login():
@@ -89,6 +93,7 @@ def registration():
 @app.route("/profile")
 @login_required
 def profile():
+    print(request.path)
     return render_template("profile.html", menu = dBase.getMenu(), title = "Profile page", writings = dBase.getWritingsAnnounce(current_user.get_id()))
 
 @app.route("/add_writing", methods = ['POST','GET'])
@@ -96,15 +101,16 @@ def profile():
 def addWriting():
     form = WritingsForm()
     print("нажали")
-    if form.validate_on_submit():
-        print('валиден')
-        res = dBase.add_writing(form.title.data, form.writing.data, current_user.get_id())
-        if not res:
-            flash("Ошибка добавления записи","error")
+    if form.title.data:
+        if form.validate_on_submit():
+            print('валиден')
+            res = dBase.add_writing(form.title.data, form.writing.data, current_user.get_id())
+            if not res:
+                flash("Ошибка добавления записи","error")
+            else:
+                flash("Запись успешна добавлена","success")
         else:
-            flash("Запись успешна добавлена","success")
-    else:
-        flash("Запись не валидна","error")
+            flash("Запись не валидна","error")
     return render_template("add_writing.html", menu = dBase.getMenu(), title = "Добавление записи", form = form)
 
 @app.route("/profile/<writing_url>")

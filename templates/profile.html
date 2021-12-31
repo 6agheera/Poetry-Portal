@@ -21,15 +21,31 @@
         </ul>
     </div>
     <div class="profile-archive">
+        <div class = "add_writing">
+            <a href="{{url_for('addWriting')}}">Добавьте запись</a>
+        </div>
         <hr>
-        <ul>
-            {%for p in writings%}
-            <li>
-                <p class = "title_poem"><a href="{{url_for('showWriting',writing_url = p.url)}}">{{p.title}}</a></p>
-                <p class = "announce">{{p.text[:50]}}</p>
-            </li>
-            {%endfor%}
-        </ul>
+        <p>Ваши записи:</p>
+        {%if writings%}
+            <div class="writings_div">
+                <ul>
+                    {%for p in writings%}
+                    <li>
+                        <p class = "title_poem"><a class = "title_link" href="{{url_for('showWriting',writing_url = p.url)}}">{{p.title}}</a></p>
+                        {%if "/n" in p.text%}
+                            <p class = "announce">{{p.text.split("/n")[0] + "..."}}</p>
+                        {%else%}
+                            <p class = "announce">{{" ".join(p.text.split(" ")[:10]) + "..."}}</p>
+                        {%endif%}
+                    </li>
+                    {%endfor%}
+                </ul>
+            </div>
+        {%else%}
+            <ul>
+                <p>У вас пока нет записей</p>
+            </ul>
+        {%endif%}
     </div>
 </section>
 
